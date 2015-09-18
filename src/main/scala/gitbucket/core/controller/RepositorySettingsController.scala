@@ -181,6 +181,13 @@ trait RepositorySettingsControllerBase extends ControllerBase {
   })
 
   /**
+   * Display the local hook scripts.
+   */
+  get("/:owner/:repository/settings/localhooks")(ownerOnly { repository =>
+    html.localhooks(getWebHookURLs(repository.owner, repository.name), flash.get("url"), repository, flash.get("info"))
+  })
+
+  /**
    * Display the danger zone.
    */
   get("/:owner/:repository/settings/danger")(ownerOnly {
