@@ -8,34 +8,38 @@
     @html.menu("settings", repository) {
         @menu("localhooks", repository) {
             @helper.html.information(info)
-            <h3>Local Hooks</h3>
-            <ul>
-                Repository local hooks
-            </ul>
-            <form method="POST" validate="true">
-                <div>
-                    <span class="error" id="error-url"></span>
+            <div class="box">
+                <div class="box-header">Local Hooks</div>
+                <div class="box-content">
+                    <ul>
+                        Repository local hooks
+                    </ul>
+                    <form method="POST" validate="true">
+                        <div>
+                            <span class="error" id="error-url"></span>
+                        </div>
+                        <ul>@localHooks.map { localHook =>
+                            <li>Name: @localHook.name</li>
+                            <li>Script: @localHook.script<li>
+                        }</ul>
+                        <select name="hooktype">
+                            <option>applypatch-msg</option>
+                            <option>commit-msg</option>
+                            <option>post-update</option>
+                            <option>pre-applypatch</option>
+                            <option>pre-commit</option>
+                            <option>pre-push</option>
+                            <option>pre-rebase</option>
+                            <option>prepare-commit-msg</option>
+                            <option>update</option>
+                        </select>
+                        <br />
+                        <textarea name="script"></textarea>
+                        <br />
+                        <input type="submit" class="btn" value="Save"/>
+                    </form>
                 </div>
-                <ul>@localHooks.map { localHook =>
-                    <li>Name: @localHook.name</li>
-                    <li>Script: @localHook.script<li>
-                }</ul>
-                <select name="hooktype">
-                    <option>applypatch-msg</option>
-                    <option>commit-msg</option>
-                    <option>post-update</option>
-                    <option>pre-applypatch</option>
-                    <option>pre-commit</option>
-                    <option>pre-push</option>
-                    <option>pre-rebase</option>
-                    <option>prepare-commit-msg</option>
-                    <option>update</option>
-                </select>
-                <br />
-                <textarea name="script"></textarea>
-                <br />
-                <input type="submit" class="btn" value="Save"/>
-            </form>
+            </div>
         }
     }
 }
