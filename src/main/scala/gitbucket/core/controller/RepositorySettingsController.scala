@@ -1,9 +1,10 @@
 package gitbucket.core.controller
 
 import gitbucket.core.settings.html
-import gitbucket.core.model.WebHook
+import gitbucket.core.model.{LocalHook, WebHook}
 import gitbucket.core.service.{RepositoryService, AccountService, WebHookService}
 import gitbucket.core.service.WebHookService._
+import gitbucket.core.service.LocalHookService._
 import gitbucket.core.util._
 import gitbucket.core.util.JGitUtil._
 import gitbucket.core.util.ControlUtil._
@@ -180,11 +181,8 @@ trait RepositorySettingsControllerBase extends ControllerBase {
     redirect(s"/${repository.owner}/${repository.name}/settings/hooks")
   })
 
-  /**
-   * Display the local hook scripts.
-   */
   get("/:owner/:repository/settings/localhooks")(ownerOnly { repository =>
-    html.localhooks(getWebHookURLs(repository.owner, repository.name), flash.get("url"), repository, flash.get("info"))
+    html.localhooks(getLocalHooks(repository.owner, repository.name), flash.get("url"), repository, flash.get("info"))
   })
 
   /**
